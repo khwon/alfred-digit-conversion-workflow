@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>org..khwon.digitconversion</string>
+	<key>connections</key>
+	<dict>
+		<key>56FC1F65-EEA8-4DBF-B8AE-1360D37AB197</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>5CF675D9-72C4-4B96-875E-0FA67B5CE0F1</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>5D5C50DE-CE15-4B8F-B1D5-0C6BE8E871FA</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>Kangheui Won</string>
+	<key>description</key>
+	<string>digit conversion</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Digit conversion</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>autopaste</key>
+				<false/>
+				<key>clipboardtext</key>
+				<string>{query}</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.clipboard</string>
+			<key>uid</key>
+			<string>5CF675D9-72C4-4B96-875E-0FA67B5CE0F1</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<true/>
+				<key>output</key>
+				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Added to Clipboard</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>5D5C50DE-CE15-4B8F-B1D5-0C6BE8E871FA</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>hex</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>script</key>
+				<string>def item_xml(options = {})
+  &lt;&lt;-ITEM
+  &lt;item arg="#{options[:arg]}" uid="#{options[:uid]}"&gt;
+    &lt;title&gt;#{options[:title]}&lt;/title&gt;
+    &lt;subtitle&gt;#{options[:subtitle]}&lt;/subtitle&gt;
+    &lt;icon&gt;#{options[:path]}&lt;/icon&gt;
+  &lt;/item&gt;
+  ITEM
+end
+query = "{query}"
+i = 0
+if query[0..1] == '0x' # hex
+  i = query[2..-1].to_i(16)
+elsif query[0] == '0' # oct
+  i = query[1..-1].to_i(8)
+elsif query[0] == 'b' # bin
+  i = query[1..-1].to_i(2)
+else
+  i = query.to_i
+end
+items = []
+items &lt;&lt; item_xml(arg: i.to_s(16), uid: 1, title: i.to_s(16), subtitle: 'Hexadecimal', path: 'icon.png')
+items &lt;&lt; item_xml(arg: i.to_s(10), uid: 2, title: i.to_s(10), subtitle: 'Decimal', path: 'icon.png')
+items &lt;&lt; item_xml(arg: i.to_s(2), uid: 3, title: i.to_s(2), subtitle: 'Binary', path: 'icon.png')
+output = "&lt;?xml version='1.0'?&gt;\n&lt;items&gt;\n#{items.join("")}&lt;/items&gt;"
+puts output
+</string>
+				<key>title</key>
+				<string>hex</string>
+				<key>type</key>
+				<integer>2</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>56FC1F65-EEA8-4DBF-B8AE-1360D37AB197</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>56FC1F65-EEA8-4DBF-B8AE-1360D37AB197</key>
+		<dict>
+			<key>ypos</key>
+			<real>310</real>
+		</dict>
+		<key>5CF675D9-72C4-4B96-875E-0FA67B5CE0F1</key>
+		<dict>
+			<key>ypos</key>
+			<real>10</real>
+		</dict>
+		<key>5D5C50DE-CE15-4B8F-B1D5-0C6BE8E871FA</key>
+		<dict>
+			<key>ypos</key>
+			<real>130</real>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string></string>
+</dict>
+</plist>
