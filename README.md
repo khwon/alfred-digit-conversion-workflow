@@ -1,6 +1,8 @@
 # alfred-digit-conversion-workflow
 
 
+[Download](https://github.com/khwon/alfred-digit-conversion-workflow/blob/master/package/Digit%20conversion.alfredworkflow?raw=true)
+
 ## Usage
 
 Decimal: `hex 1234` =>
